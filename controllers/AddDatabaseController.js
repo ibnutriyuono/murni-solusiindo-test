@@ -10,7 +10,7 @@ const {
 } = require('../models/index')
 
 class AddDatabaseController {
-  static addDatabase = async (req, res, next) => {
+  static async addDatabase (req, res, next) {
     try {
       const { data } = await axios.get("https://portal.panelo.co/paneloresto/api/productlist/18")
       const { products } = data
@@ -28,21 +28,30 @@ class AddDatabaseController {
             user_id: products[i].user_id
           })
           products[i].products.forEach( async (product) => {
-            await ProductContent.create({
+            console.log(product, '<<<<')
+            const results = await ProductContent.create({
               title: product.title,
               slug: product.slug,
               lang: product.lang,
               auth_id: product.auth_id,
               status: product.status,
               type: product.type,
-              count: product.count,
-              ProductId: product.pivot.category_id - 20,
-              PivotId: product.pivot.category_id - 20,
-              PriceId: product.pivot.category_id - 20,
-              PreviewId: product.pivot.category_id - 20,
-              AddonId: product.pivot.category_id - 20,
-              StockId: product.pivot.category_id - 20
+              count: product.count
             })
+            if (results) {
+              await ProductContent.update({
+                ProductId: product.pivot.category_id - 20,
+                PivotId: results.id,
+                PriceId: results.id,
+                PreviewId: results.id,
+                AddonId: results.id,
+                StockId: results.id
+              }, {
+                where: {
+                  id: results.id
+                }
+              })
+            }
             await Pivot.create({
               category_id: product.pivot.category_id,
               term_id: product.pivot.term_id
