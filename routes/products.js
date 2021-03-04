@@ -8,5 +8,6 @@ router.post('/', ProductController.addProduct)
 router.put('/:id', ProductController.editProductById)
 router.delete('/:id', ProductController.deleteProductById)
 router.get('/csv', ProductController.dataToCsv)
+router.get('/categories', ProductController.getCategories)
 
 module.exports = router

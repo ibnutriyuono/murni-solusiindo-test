@@ -33,6 +33,15 @@ class ProductController {
     }
   }
 
+  static async getCategories (req, res, next) {
+    try {
+      const results = await Product.findAll()
+      res.status(200).json(results)
+    } catch (error) {
+      next(error)
+    }
+  }
+
   static async getProductByCategory  (req, res, next) {
     try {
       const { id } = req.params
