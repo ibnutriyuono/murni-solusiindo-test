@@ -6,5 +6,6 @@ router.get('/categories/:id', ProductController.getProductByCategory)
 router.get('/xml', ProductController.getProductsXML)
 router.post('/', ProductController.addProduct)
 router.put('/:id', ProductController.editProductById)
+router.delete('/:id', ProductController.deleteProductById)
 
 module.exports = router

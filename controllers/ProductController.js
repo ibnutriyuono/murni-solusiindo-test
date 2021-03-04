@@ -238,6 +238,53 @@ class ProductController {
       next(error)
     }
   }
+
+  static async deleteProductById (req, res, next) {
+    try {
+      const { id } = req.params
+      const results = await ProductContent.destroy({
+        where: { 
+          id
+        }
+      })
+      if(results){
+        await Price.destroy({
+          where: {
+            id
+          }
+        })
+        await Stock.destroy({
+          where: {
+            id
+          }
+        })
+        await Preview.destroy({
+          where: {
+            id
+          }
+        })
+        await Pivot.destroy({
+          where: {
+            id
+          }
+        })
+        await Addon.destroy({
+          where: {
+            id
+          }
+        }) 
+        res.status(200).json({
+          message: 'Product has been deleted successfully'
+        })
+      } else {
+        next({
+          name: 'NoData'
+        })
+      }
+    } catch (error) {
+      next(error)
+    }
+  }
 }
 
 module.exports = ProductController
