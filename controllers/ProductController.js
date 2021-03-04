@@ -10,22 +10,51 @@ const {
 
 class ProductController {
   static getProducts = async (req, res, next) => {
-    const results = await Product.findAll({
-      include: {
-        model: ProductContent,
-        include: [
-          Pivot, 
-          Price,
-          Preview,
-          Addon,
-          Stock
-        ]
+    try {
+      const results = await Product.findAll({
+        include: {
+          model: ProductContent,
+          include: [
+            Pivot, 
+            Price,
+            Preview,
+            Addon,
+            Stock
+          ]
+        }
+      })
+      res.status(200).json({
+        products: results
+      })
+    } catch (error) {
+      next(error)
+    }
+  }
+  static getProductByCategory = async (req, res, next) => {
+    try {
+      const { id } = req.params
+      const results = await Product.findByPk(id, {
+        include: {
+          model: ProductContent,
+          include: [
+            Pivot, 
+            Price,
+            Preview,
+            Addon,
+            Stock
+          ]
+        }
+      })
+      if (results) {
+        res.status(200).json(results)
+      } else {
+        next({
+          name: 'CategoryNotFound'
+        })
       }
-    })
-    console.log(results)
-    res.status(200).json({
-      products: results
-    })
+    } catch (error) {
+      next(error)
+    }
   }
 }
 
