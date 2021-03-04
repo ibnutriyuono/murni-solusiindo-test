@@ -11,6 +11,11 @@ const errorHandler = (err, req, res, next) => {
           message: "Sorry. Category doesn't exist."
         })
         break;
+      case "NoData":
+        res.status(404).json({
+          message: "Sorry. Data doesn't exist."
+        })
+        break;
       default:
         console.log(err)
         res.status(500).json({
