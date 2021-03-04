@@ -15,8 +15,13 @@
     "axios": "^0.21.1",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "js2xmlparser": "^4.0.1",
+    "json-2-csv": "^3.10.2",
+    "jstoxml": "^2.0.3",
+    "object-to-xml": "^2.0.0",
     "pg": "^8.5.1",
-    "sequelize": "^6.5.0"
+    "sequelize": "^6.5.0",
+    "xml": "^1.0.1"
   },
   "devDependencies": {
     "dotenv": "^8.2.0",

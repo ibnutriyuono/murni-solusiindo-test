@@ -16,6 +16,11 @@ const errorHandler = (err, req, res, next) => {
           message: "Sorry. Data doesn't exist."
         })
         break;
+      case "CorruptFile":
+        res.status(404).json({
+          message: "Some error occured - file either not saved or corrupted file saved."
+        })
+        break;
       default:
         console.log(err)
         res.status(500).json({

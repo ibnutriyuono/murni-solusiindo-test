@@ -7,6 +7,8 @@ const {
   Addon,
   Stock 
 } = require('../models')
+const fs = require('fs')
+const converter = require('json-2-csv')
 
 class ProductController {
   static async getProducts (req, res, next) {
@@ -284,6 +286,43 @@ class ProductController {
     } catch (error) {
       next(error)
     }
+  }
+
+  static async dataToCsv (req, res, next) {
+    const results = await Product.findAll({
+      include: {
+        model: ProductContent,
+        include: [
+          Pivot, 
+          Price,
+          Preview,
+          Addon,
+          Stock
+        ]
+      }
+    })
+
+    let json2csvCallback = function (err, csv) {
+      if (err) throw err
+      fs.writeFile('data.csv', csv, 'utf8', function(err) {
+        if (err) {
+          console.log('Some error occured - file either not saved or corrupted file saved.')
+          next({
+            name: 'CorruptFile'
+          })
+        } else {
+          console.log('Saved')
+        }
+      })
+    }
+    res.status(200).json({
+      message:"Data has been successfully saved into csv."
+    })
+
+    converter.json2csv({results: results}, json2csvCallback, {
+      prependHeader: false   
+    })
+
   }
 }
 

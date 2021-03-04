@@ -7,5 +7,6 @@ router.get('/xml', ProductController.getProductsXML)
 router.post('/', ProductController.addProduct)
 router.put('/:id', ProductController.editProductById)
 router.delete('/:id', ProductController.deleteProductById)
+router.get('/csv', ProductController.dataToCsv)
 
 module.exports = router
