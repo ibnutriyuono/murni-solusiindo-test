@@ -53,21 +53,21 @@ class AddDatabaseController {
               })
             }
             await Pivot.create({
-              category_id: product.pivot.category_id,
-              term_id: product.pivot.term_id
+              category_id: product.pivot.category_id - 20,
+              term_id: results.id
             })
             await Price.create({
-              term_id: product.price.term_id,
+              term_id: results.id,
               price: product.price.price
             })
             await Preview.create({
-              term_id: product.preview.term_id,
+              term_id: results.id,
               type: product.preview.type,
               content: product.preview.content
             })
             await Addon.create({})
             await Stock.create({
-              term_id: product.stock.term_id,
+              term_id: results.id,
               stock: product.stock.stock
             })
           })
