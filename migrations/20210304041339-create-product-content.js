@@ -36,6 +36,24 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
+      },
+      ProductId: {
+        type: Sequelize.INTEGER
+      },
+      PivotId: {
+        type: Sequelize.INTEGER
+      },
+      PriceId: {
+        type: Sequelize.INTEGER
+      },
+      PreviewId: {
+        type: Sequelize.INTEGER
+      },
+      AddonId: {
+        type: Sequelize.INTEGER
+      },
+      StockId: {
+        type: Sequelize.INTEGER
       }
     });
   },
